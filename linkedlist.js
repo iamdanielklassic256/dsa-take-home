@@ -77,21 +77,70 @@ class LinkedList {
 		}
 		return temp;
 	}
+	set(index, value) {
+		let temp = this.get(index)
+		if (temp) {
+			temp.value = value;
+			return true
+		}
+		return false
+	}
+	insert(index, value) {
+		if (index === 0) return this.unshift()
+		if (index === this.length) return this.push();
+		if (index < 0 || index > this.length) return false;
+		const newNode = new Node(value);
+		const temp = this.get(index - 1);
+		newNode.next = temp.next;
+		temp.next = newNode;
+		this.length++;
+		return true;
+	}
+	remove(index) {
+		if (index === 0) return this.shift()
+		if (index === this.length - 1) return this.pop();
+		if (index < 0 || index >= this.length) return false;
+		const before = this.get(index - 1);
+		const temp = before.next;
+		temp.next = null;
+		this.length--
+		return temp;
+	}
+	reverse() {
+		let temp = this.head;
+		this.head = this.tail;
+		this.tail = temp;
+
+		let next = temp.next;
+		let previous = null;
+
+		for (let i = 0; i < this.length; i++) {
+			next = temp.next;
+			temp.next = previous;
+			previous = temp;
+			temp = previous;
+		}
+		return this
+	}
 
 }
 
-let myLinkedList = new LinkedList(7)
-myLinkedList.push(4);
-myLinkedList.push(3);
+let myLinkedList = new LinkedList(1)
 myLinkedList.push(2);
-myLinkedList.push(1);
-myLinkedList.pop()
-myLinkedList.unshift(9)
-myLinkedList.shift()
-
+myLinkedList.push(3);
+myLinkedList.push(4);
+myLinkedList.push(5);
+// myLinkedList.reverse()
+// myLinkedList.push(3);
+// myLinkedList.push(2);
+// myLinkedList.push(1);
 // myLinkedList.pop()
+// myLinkedList.unshift(9)
+// myLinkedList.shift()
+
+// // myLinkedList.pop()
 console.log(myLinkedList);
-console.log(myLinkedList.get(2));
+// console.log(myLinkedList.get(2));
 
 
 /*
